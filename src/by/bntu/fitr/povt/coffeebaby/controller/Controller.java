@@ -9,6 +9,7 @@ public class Controller {
        tree.add(1,2);
         tree.add(9,7);
         tree.add(7,1);
+        tree.add(0,1);
         tree.printLeft();
 
         tree.printRight();
