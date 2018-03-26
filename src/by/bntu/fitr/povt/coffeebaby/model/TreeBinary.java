@@ -1,55 +1,79 @@
 package by.bntu.fitr.povt.coffeebaby.model;
 
 
+public class TreeBinary<T1 extends Comparable<T1>, T2> {
+    static class Node<T1, T2> {
+        T1 key;
+        T2 value;
+        Node<T1, T2> left, right;
 
-
-public class TreeBinary<T extends Integer> {
-    Node root;
-
-
-    public Node add(Node root, T key){
-        if(root == null){
-            Node temp = new Node();
-            temp.key = key;
-            return temp;
+        Node(T1 key, T2 value) {
+            this.key = key;
+            this.value = value;
         }
-        if(root.key.compareTo(key) == 1){
-            root.r = add(root.r,key);
+    }
+
+    private Node<T1, T2> root = null;
+
+
+    public Node add(T1 key, T2 value) {
+        Node<T1, T2> x = root, y = null;
+
+        while (x != null) {
+            int result = key.compareTo(x.key);
+            if (result == 0) {
+                x.value = value;
+            } else {
+                y = x;
+                if (result < 0) {
+                    x = x.left;
+
+                } else {
+                    x = x.right;
+                }
+            }
         }
-        if(root.key.compareTo(key) == -1){
-            root.l = add(root.r,key);
+        Node<T1, T2> nextNode = new Node<T1, T2>(key, value);
+        if (y == null) {
+            root = nextNode;
+        } else {
+            if (key.compareTo(y.key) < 0) {
+                y.left = nextNode;
+            } else {
+                y.right = nextNode;
+            }
         }
-        return root;
+        return x;
     }
 
 
 
 
-
-
-    void printLeft(Node t){
-        if(t != null){
-            printLeft(t.l);
+    void printLeft(Node t) {
+        if (t != null) {
+            printLeft(t.left);
             System.out.println(t.key + " ");
-            printLeft(t.r);
+            printLeft(t.right);
         }
 
     }
-    public void printLeft(){
+
+    public void printLeft() {
         printLeft(root);
         System.out.println();
     }
 
-    void printRight(Node t){
-        if(t != null){
-            printRight(t.r);
+    void printRight(Node t) {
+        if (t != null) {
+            printRight(t.right);
             System.out.println(t.key + " ");
 
-            printRight(t.l);
+            printRight(t.left);
         }
 
     }
-    public void printRight(){
+
+    public void printRight() {
         printRight(root);
         System.out.println();
     }
